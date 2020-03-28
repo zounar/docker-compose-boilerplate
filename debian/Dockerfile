@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM debian:10
 
 # Disable interactive installations
 ARG DEBIAN_FRONTEND=noninteractive
@@ -15,13 +15,18 @@ RUN apt-get update && \
 RUN rm -rf /tmp/* /var/tmp/*
 
 # Use UID and GID arguments got from docker-compose.yml
-ARG UID
-ARG GID
+ARG UID=1000
+ARG GID=1000
 
 ###### CREATE GROUP if not exist
-RUN id -g $GID >/dev/null 2>&1 || groupadd "dc-boilerplate" -g $GID
+RUN id -g $GID >/dev/null 2>&1 || \
+    echo "Creating group $GID" && \
+    groupadd "dc-boilerplate" -g $GID
 ###### CREATE USER if not exist and add to sudo
-RUN id -u $UID >/dev/null 2>&1 || useradd "dc-boilerplate" -u $UID -g $GID -m -s /bin/bash && echo "dc-boilerplate ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN id -u $UID >/dev/null 2>&1 || \
+    echo "Creating user $UID" && \
+    useradd "dc-boilerplate" -u $UID -g $GID -m -s /bin/bash && \
+    echo "dc-boilerplate ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ###### SWITCH USER
 USER $UID
