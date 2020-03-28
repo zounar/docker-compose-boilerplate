@@ -50,9 +50,15 @@ ubuntu:
 ### Installation of basic system tools
 All containers come with the tools that are used very often in every Linux distribution:  `bash`, `sudo`, `wget`, `curl`, `nano` and `vim`. 
 
-### Run single container
-To run just a single container, you can call following command (Ubuntu):    
-`docker-compose -d ubuntu`
-
+### Useful commands
 **Beware**: The root directory of this folder is mapped into the `working_dir` of the container!
+Pay attention not do delete or break your own files.
+
+**Run single container**  
+To run just a single container, you can call following command (Ubuntu):    
+`docker-compose up -d ubuntu`
+
+**Shell into running container**  
+Once the container is running, you can shell into it (Ubuntu):  
+`docker-compose exec ubuntu bash`
 
