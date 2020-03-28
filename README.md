@@ -1,7 +1,7 @@
 # Docker-Compose boilerplate
 
 Boilerplate for Docker Compose which solves common use-case problems. See [snippets.md](snippets.md)
-for some useful code snippets that you can use in Dockerfiles,
+for some useful code snippets that you can use in Dockerfiles.
 
 ### Permission issues
 Running containers as root brings problems under Linux. All files created inside the 
@@ -32,18 +32,28 @@ Environment variables can be also set by can prepending the `docker-compose`
 command with such values, eg.: `DOCKER_UID=42 DOCKER_GID=42 docker-compose up`    
 
 
+### Unified entrypoint
+All containers come with `/bin/bash` as an entrypoint.
+
 ### Keep container running
 Base images often exit right after the start, because there is no default process running
 which would keep them busy. This is resolved by the endless wait-loop that is embedded
 in all containers:  
-`/bin/sh -c echo 'Container is ready.' ; while sleep 1000; do :; done`
+`echo 'Container is ready.' ; while sleep 1000; do :; done`
 
 If you wan't to suppress this behavior, you can either edit the `CMD` statement in the 
 `Dockerfile` or you can define your own command in `docker-compose.yml`, eg.:
 ```
 ubuntu:
     container_name: dc-boilerplate-ubuntu
-    command: echo "Hello world"
+    command: echo 'Hello world'
+    ...
+```
+
+```
+ubuntu:
+    container_name: dc-boilerplate-ubuntu
+    command: -c "echo 'Hey!' && echo 'We can chain!'"
     ...
 ```
 

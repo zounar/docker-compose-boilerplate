@@ -12,6 +12,18 @@ services:
     volumes:
       - ./:/var/www/dc-boilerplate
 
+  centos:
+    container_name: dc-boilerplate-centos
+    restart: always
+    build:
+      context: centos
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    working_dir: /var/www/dc-boilerplate
+    volumes:
+      - ./:/var/www/dc-boilerplate
+
   debian:
     container_name: dc-boilerplate-debian
     restart: always

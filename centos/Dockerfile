@@ -27,4 +27,5 @@ RUN id -u $UID >/dev/null 2>&1 || \
 USER $UID:$GID
 
 # This command will keep container running
-CMD ["/bin/sh", "-c", "echo 'Container is ready.' ; while sleep 1000; do :; done"]
+ENTRYPOINT ["/bin/bash"]
+CMD ["-c", "echo 'Container is ready.' ; while sleep 1000; do :; done"]
