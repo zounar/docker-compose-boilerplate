@@ -2,7 +2,6 @@ version: '3.7'
 services:
   alpine:
     container_name: dc-boilerplate-alpine
-    restart: always
     build:
       context: alpine
       args:
@@ -14,7 +13,6 @@ services:
 
   centos:
     container_name: dc-boilerplate-centos
-    restart: always
     build:
       context: centos
       args:
@@ -26,7 +24,6 @@ services:
 
   debian:
     container_name: dc-boilerplate-debian
-    restart: always
     build:
       context: debian
       args:
@@ -38,7 +35,6 @@ services:
 
   fedora:
     container_name: dc-boilerplate-fedora
-    restart: always
     build:
       context: fedora
       args:
@@ -50,7 +46,6 @@ services:
 
   ubuntu:
     container_name: dc-boilerplate-ubuntu
-    restart: always
     build:
       context: ubuntu
       args:
