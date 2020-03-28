@@ -11,39 +11,39 @@ services:
     working_dir: /var/www/dc-boilerplate
     volumes:
       - ./:/var/www/dc-boilerplate
-#
-#  debian:
-#    container_name: dc-boilerplate-debian
-#    restart: always
-#    build:
-#      context: debian
-#      args:
-#        UID: ${DOCKER_UID:-1000}
-#        GID: ${DOCKER_GID:-1000}
-#    working_dir: /var/www/dc-boilerplate
-#    volumes:
-#      - ./:/var/www/dc-boilerplate
-#
-#  fedora:
-#    container_name: dc-boilerplate-fedora
-#    restart: always
-#    build:
-#      context: fedora
-#      args:
-#        UID: ${DOCKER_UID:-1000}
-#        GID: ${DOCKER_GID:-1000}
-#    working_dir: /var/www/dc-boilerplate
-#    volumes:
-#      - ./:/var/www/dc-boilerplate
-#
-#  ubuntu:
-#    container_name: dc-boilerplate-ubuntu
-#    restart: always
-#    build:
-#      context: ubuntu
-#      args:
-#        UID: ${DOCKER_UID:-1000}
-#        GID: ${DOCKER_GID:-1000}
-#    working_dir: /var/www/dc-boilerplate
-#    volumes:
-#      - ./:/var/www/dc-boilerplate
+
+  debian:
+    container_name: dc-boilerplate-debian
+    restart: always
+    build:
+      context: debian
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    working_dir: /var/www/dc-boilerplate
+    volumes:
+      - ./:/var/www/dc-boilerplate
+
+  fedora:
+    container_name: dc-boilerplate-fedora
+    restart: always
+    build:
+      context: fedora
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    working_dir: /var/www/dc-boilerplate
+    volumes:
+      - ./:/var/www/dc-boilerplate
+
+  ubuntu:
+    container_name: dc-boilerplate-ubuntu
+    restart: always
+    build:
+      context: ubuntu
+      args:
+        UID: ${DOCKER_UID:-1000}
+        GID: ${DOCKER_GID:-1000}
+    working_dir: /var/www/dc-boilerplate
+    volumes:
+      - ./:/var/www/dc-boilerplate
