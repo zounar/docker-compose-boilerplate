@@ -28,4 +28,4 @@ USER $UID:$GID
 
 # This command will keep container running
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "echo 'Container is ready.' ; while sleep 1000; do :; done"]
+CMD ["-c", "echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done"]

@@ -39,7 +39,7 @@ All containers come with `/bin/bash` as an entrypoint.
 Base images often exit right after the start, because there is no default process running
 which would keep them busy. This is resolved by the endless wait-loop that is embedded
 in all containers:  
-`echo 'Container is ready.' ; while sleep 1000; do :; done`
+`echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done`
 
 If you wan't to suppress this behavior, you can either edit the `CMD` statement in the 
 `Dockerfile` or you can define your own command in `docker-compose.yml`, eg.:

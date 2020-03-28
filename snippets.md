@@ -7,7 +7,7 @@ The sleep process is very lightweight so you don't need to worry about performan
 
 #### Dockerfile
 ```Dockerfile
-CMD ["/bin/sh", "-c", "echo 'Container is ready.' ; while sleep 1000; do :; done"]
+CMD ["/bin/sh", "-c", "echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done"]
 ```
 #### docker-compose.yml
 ```docker-compose
@@ -15,7 +15,7 @@ version: '3.7'
 services:
     my_service:
         ...
-        command: /bin/sh -c "echo 'Container is ready.' ; while sleep 1000; do :; done"
+        command: /bin/sh -c "echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done"
         ...
 ```
 
@@ -38,7 +38,7 @@ version: '3.7'
 services:
     my_service:
         ...
-        command: /bin/sh -c "wait-for-it db:5432 -q && echo 'Container is ready.' ; while sleep 1000; do :; done"
+        command: /bin/sh -c "wait-for-it db:5432 -q && echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done"
         ...
 ```
 
