@@ -29,7 +29,7 @@ RUN id -u $UID >/dev/null 2>&1 || \
     echo "dc-boilerplate ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ###### SWITCH USER
-USER $UID
+USER $UID:$GID
 
 # This command will keep container running
 ENTRYPOINT ["/bin/bash"]

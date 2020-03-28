@@ -19,13 +19,14 @@ o change it, you can set `DOCKER_UID` and `DOCKER_GID` environment variables tha
 set the values respectively. 
 
 **Using .env file**  
-Environment variables can be set, by creating `.env` file in the root
-of this repository where you set these variables:
+Environment variables can be set, by creating `.env` ([.env-example](.env-example)) file 
+in the root of this repository where you set these variables:
 ```
-# .env
 DOCKER_UID=42
 DOCKER_GID=42
 ```
+
+In order to easily create this file, you can call: `./init-docker.sh`
 
 **Using in-place variables**  
 Environment variables can be also set by can prepending the `docker-compose` 
