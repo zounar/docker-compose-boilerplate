@@ -7,9 +7,8 @@ services:
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
-    working_dir: /var/www/dc-boilerplate
     volumes:
-      - ./:/var/www/dc-boilerplate
+      - ./:/usr/src/app
 
   centos:
     container_name: dc-boilerplate-centos
@@ -19,9 +18,8 @@ services:
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
-    working_dir: /var/www/dc-boilerplate
     volumes:
-      - ./:/var/www/dc-boilerplate
+      - ./:/usr/src/app
 
   debian:
     container_name: dc-boilerplate-debian
@@ -31,9 +29,8 @@ services:
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
-    working_dir: /var/www/dc-boilerplate
     volumes:
-      - ./:/var/www/dc-boilerplate
+      - ./:/usr/src/app
 
   fedora:
     container_name: dc-boilerplate-fedora
@@ -43,9 +40,8 @@ services:
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
-    working_dir: /var/www/dc-boilerplate
     volumes:
-      - ./:/var/www/dc-boilerplate
+      - ./:/usr/src/app
 
   ubuntu:
     container_name: dc-boilerplate-ubuntu
@@ -55,6 +51,5 @@ services:
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
-    working_dir: /var/www/dc-boilerplate
     volumes:
-      - ./:/var/www/dc-boilerplate
+      - ./:/usr/src/app

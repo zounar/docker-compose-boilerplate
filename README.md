@@ -1,75 +1,65 @@
 # Docker-Compose boilerplate
 
 Boilerplate for Docker Compose which solves common use-case problems. See [snippets.md](snippets.md)
-for some useful code snippets that you can use in Dockerfiles.
+for some useful code that you can use in Dockerfiles. To install Docker, see 
+[docker installation guide](docker-installation.md).
 
-### Permission issues
-Running containers as root brings problems under Linux. All files created inside the 
-container which are mapped using volumes are then mapped onto the host system with 
-the same permissions - all files created by container root user are owned by root 
-on the host machine. This brings not only security issues, but also complicates the 
-file management process as you must handle such files with `sudo`.
+This project contains 5 Docker containers: `alpine`, `centos`, `debian`, `fedora` and `ubuntu`. 
+You can run them one-by-one or all at once and start playing and tinkering with them.
 
-#### Solution  
-These containers include custom user and group `dc-boilerplate` that is automatically 
-created and then used as a default container user. 
+### How to run
+**Initialize the project (Linux only):**  
+`./init-docker.sh`
 
-The default UID and GID of `dc-boilerplate` user and group is `1000:1000`. In order t
-o change it, you can set `DOCKER_UID` and `DOCKER_GID` environment variables that will 
-set the values respectively. 
-
-**Using .env file**  
-Environment variables can be set, by creating `.env` ([.env-example](.env-example)) file 
-in the root of this repository where you set these variables:
-```
-DOCKER_UID=42
-DOCKER_GID=42
-```
-
-In order to easily create this file, you can call: `./init-docker.sh`
-
-**Using in-place variables**  
-Environment variables can be also set by can prepending the `docker-compose` 
-command with such values, eg.: `DOCKER_UID=42 DOCKER_GID=42 docker-compose up`    
-
-
-### Unified entrypoint
-All containers come with `/bin/bash` as an entrypoint.
-
-### Keep container running
-Base images often exit right after the start, because there is no default process running
-which would keep them busy. This is resolved by the endless wait-loop that is embedded
-in all containers:  
-`echo 'Container is ready.' ; trap exit TERM ; while sleep 1; do :; done`
-
-If you wan't to suppress this behavior, you can either edit the `CMD` statement in the 
-`Dockerfile` or you can define your own command in `docker-compose.yml`, eg.:
-```
-ubuntu:
-    container_name: dc-boilerplate-ubuntu
-    command: echo 'Hello world'
-    ...
-```
-
-```
-ubuntu:
-    container_name: dc-boilerplate-ubuntu
-    command: -c "echo 'Hey!' && echo 'We can chain!'"
-    ...
-```
-
-### Installation of basic system tools
-All containers come with the tools that are used very often in every Linux distribution:  `bash`, `sudo`, `wget`, `curl`, `nano` and `vim`. 
-
-### Useful commands
-**Beware**: The root directory of this folder is mapped into the `working_dir` of the container!
-Pay attention not do delete or break your own files.
-
-**Run single container**  
-To run just a single container, you can call following command (Ubuntu):    
+**Run (ubuntu) container**  
 `docker-compose up -d ubuntu`
 
-**Shell into running container**  
-Once the container is running, you can shell into it (Ubuntu):  
+**Shell into (ubuntu) container**  
 `docker-compose exec ubuntu bash`
 
+**Start tinkering with the container!**  
+`echo "Hello, I am $(uname -n) container :]"`
+
+**Beware**: The directory of this project is mapped into the working directory of the container!
+Pay attention not do delete or break your own files.
+
+### Edit the Dockerfile
+All changes that you do in the containers are irreversibly lost once you remove containers. To keep
+them persistent, you need to edit the Dockerfile that is stored in a directory named by the Linux distribution.
+
+After you change the Dockerfile, you need to rebuild and (re)start the container by:  
+`docker-compose up --build -d ubuntu`
+
+### Useful commands
+**Run single container**  
+`docker-compose up -d ubuntu`
+
+**Run all containers**  
+`docker-compose up -d`
+
+**Shell into running container**  
+`docker-compose exec ubuntu bash`
+
+**Shell into container as root**  
+`docker-compose exec -u root ubuntu bash`
+
+**Stop single container**  
+`docker-compose stop ubuntu`
+
+**Stop all containers**  
+`docker-compose stop`
+
+**Remove single container**  
+`docker-compose down ubuntu`
+
+**Remove all containers**  
+`docker-compose down`
+
+**Build all containers**  
+`docker-compose build` 
+
+**Rebuild all containers**  
+`docker-compose build --no-cache --pull`
+
+**Watch logs of single container**  
+`docker-compose logs -f ubuntu`
