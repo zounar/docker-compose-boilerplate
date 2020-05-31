@@ -2,7 +2,7 @@ FROM alpine:3
 
 # Set default timezone and install system packages
 RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
-    apk add bash sudo wget curl nano vim && \
+    apk add --no-cache bash sudo wget curl nano vim && \
     # Fix sudo: setrlimit(RLIMIT_CORE): Operation not permitted
     echo "Set disable_coredump false" >> /etc/sudo.conf
 
