@@ -1,16 +1,13 @@
 FROM alpine:3
 
+# Set global locale to UTF 8
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
 # Set default timezone and install system packages
 RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     apk add --no-cache bash sudo wget curl nano vim && \
     # Fix sudo: setrlimit(RLIMIT_CORE): Operation not permitted
     echo "Set disable_coredump false" >> /etc/sudo.conf
-
-# Specify the working directory
-WORKDIR /usr/src/app
-
-# Remove temporary files
-RUN rm -rf /tmp/* /var/tmp/*
 
 # Use UID and GID arguments got from docker-compose.yml
 ARG UID=1000
@@ -25,6 +22,12 @@ RUN getent passwd $UID >/dev/null || \
     echo "Creating user $UID" && \
     adduser "dc-boilerplate" -D -u $UID -G $(getent group $GID | cut -d: -f1) -s /bin/bash && \
     echo "dc-boilerplate ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Create the working directory
+RUN mkdir -p /usr/src/app && \
+    chown $UID:$GID /usr/src/app
+# Specify the working directory
+WORKDIR /usr/src/app
 
 # Switch to the newly created user
 USER $UID

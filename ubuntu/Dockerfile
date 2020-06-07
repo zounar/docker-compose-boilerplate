@@ -1,5 +1,8 @@
 FROM ubuntu:18.04
 
+# Set global locale to UTF 8
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
 # Disable interactive installations
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -7,13 +10,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y sudo wget curl nano vim
-
-# Remove temporary files
-RUN rm -rf /tmp/* /var/tmp/*
-
-# Specify the working directory
-WORKDIR /usr/src/app
+    apt-get install -y sudo wget curl nano vim && \
+    apt-get clean
 
 # Use UID and GID arguments got from docker-compose.yml
 ARG UID=1000
@@ -28,6 +26,12 @@ RUN getent passwd $UID >/dev/null || \
     echo "Creating user $UID" && \
     useradd "dc-boilerplate" -u $UID -g $GID -m -s /bin/bash && \
     echo "dc-boilerplate ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Create the working directory
+RUN mkdir -p /usr/src/app && \
+    chown $UID:$GID /usr/src/app
+# Specify the working directory
+WORKDIR /usr/src/app
 
 # Switch to the newly created user
 USER $UID
