@@ -1,6 +1,6 @@
 FROM fedora:31
 
-# Set global locale to UTF 8
+# Set system locale to UTF 8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 LC_CTYPE=C.UTF-8
 
 # Set default timezone and install system packages

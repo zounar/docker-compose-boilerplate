@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
-# Set global locale to UTF 8
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+# Set system locale to UTF 8
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 LC_CTYPE=C.UTF-8
 
 # Disable interactive installations
 ARG DEBIAN_FRONTEND=noninteractive
